@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const mongoose = require("mongoose");
 const express = require("express");
 const conect = require("./config/db");
 
@@ -10,7 +10,19 @@ const PORT = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === "production";
 const BASE_URL = isProd ? process.env.BASE_URL : `http://localhost:${PORT}`;
 
-conect();
+// conect();
+
+mongoose.connect(process.env.MONGO_URL, { dbname: process.env.DB_NAME });
+const db = mongoose.connection;
+
+db.on("connected", () => {
+  console.log("✅ Conectado a MongoDB");
+});
+
+db.on("error", (error) => {
+  console.error("❌ Error de conexión:", error);
+});
+
 app.use(express.json());
 const urlsRoutes = require("./routes/urls");
 
