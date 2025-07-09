@@ -17,9 +17,13 @@ const urlsRoutes = require("./routes/urls");
 app.use("/urls", urlsRoutes);
 
 app.use((req, res) => {
-  res.status(404).json({ message: "Ruta no válida ❌" });
+  res.status(200).json({
+    conection: `${BASE_URL}`,
+    mongourl: `${process.env.MONGO_URL}`,
+    url: `${process.env.MONGO_URL}/${process.env.DB_NAME}`,
+  });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, (req, res) => {
   console.log(`Servidor corriendo en ${BASE_URL}`);
 });
