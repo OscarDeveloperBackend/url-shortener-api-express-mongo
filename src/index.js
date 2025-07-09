@@ -22,6 +22,8 @@ db.on("connected", () => {
 });
 
 db.on("error", (error) => {
+  console.log(process.env.MONGO_URL);
+
   console.error("❌ Error de conexión:", error);
 });
 
