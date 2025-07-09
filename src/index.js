@@ -12,7 +12,9 @@ const BASE_URL = isProd ? process.env.BASE_URL : `http://localhost:${PORT}`;
 
 // conect();
 
-mongoose.connect(process.env.MONGO_URL, { dbname: process.env.DB_NAME });
+const options = isProd ? {} : { dbName: process.env.DB_NAME };
+
+mongoose.connect(process.env.MONGO_URL, options);
 const db = mongoose.connection;
 
 db.on("connected", () => {
