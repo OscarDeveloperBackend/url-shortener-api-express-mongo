@@ -1,7 +1,6 @@
 const express = require("express");
 const routes = express.Router();
 const Url = require("../models/Url");
-const PORT = process.env.PORT || 3000;
 
 const verificarUrlExiste = require("../validations/url");
 
