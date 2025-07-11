@@ -44,9 +44,14 @@ routes.post("/", async (req, res) => {
 
     const data = await Url.findOne({ url_base: url_base });
     if (data)
-      return res
-        .status(200)
-        .json({ message: "Url recortada", url_recortada: data.url_recortada });
+      return res.status(200).json({
+        message: "URL recortada con éxito",
+        url_recortada: data.url_recortada,
+        url_base: data.url_base,
+        codigo: data.codigo,
+        n_cliks: data.n_cliks,
+        date_create: data.date_create,
+      });
 
     let codigo;
     while (true) {
@@ -74,7 +79,10 @@ routes.post("/", async (req, res) => {
     res.status(201).json({
       message: "URL recortada con éxito",
       url_recortada: url_create.url_recortada,
-      url_create,
+      url_base: url_create.url_base,
+      codigo: url_create.codigo,
+      n_cliks: url_create.n_cliks,
+      date_create: url_create.date_create,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

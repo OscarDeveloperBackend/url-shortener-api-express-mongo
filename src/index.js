@@ -1,10 +1,15 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
-
+const cors = require("cors");
 const app = express();
-
 const PORT = process.env.PORT || 3000;
+const corsOptions = {
+  origin: "http://127.0.0.1:5500",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
 const isProd = process.env.NODE_ENV === "production";
 const BASE_URL = isProd ? process.env.BASE_URL : `http://localhost:${PORT}`;
@@ -19,7 +24,7 @@ db.on("connected", () => {
 db.on("error", (error) => {
   console.error("❌ Error de conexión:", error);
 });
-
+app.use(cors(corsOptions));
 app.use(express.json());
 const urlsRoutes = require("./routes/urls");
 
